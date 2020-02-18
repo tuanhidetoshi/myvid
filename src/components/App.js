@@ -7,11 +7,6 @@ import ButtonGroup from "./ButtonGroup";
 import Video from "./Video";
 const App = () => {
   const [currentVid, setCurrentVid] = useState(0);
-  const [currentVideoSetting, setCurrentVideoSetting] = useState({
-    key: urls[currentVid],
-    source: `/asset/video/${urls[currentVid]}.mp4`,
-    track: `/asset/sub/${urls[currentVid]}.vtt`
-  });
   const [speed, setSpeed] = useState(1);
   const [onRun, setOnRun] = useState(false);
 
@@ -36,11 +31,6 @@ const App = () => {
   const onNext = () => {
     if (currentVid < urls.length - 1) {
       setCurrentVid(currentVid + 1);
-      setCurrentVideoSetting(newSettings => ({
-        key: urls[currentVid],
-        source: `/asset/video/${urls[currentVid]}.mp4`,
-        track: `/asset/sub/${urls[currentVid]}.vtt`
-      }));
       onReset();
       setOnRun(false);
     }
@@ -49,11 +39,6 @@ const App = () => {
   const onPrev = () => {
     if (currentVid > 0) {
       setCurrentVid(currentVid - 1);
-      setCurrentVideoSetting(newSettings => ({
-        key: urls[currentVid],
-        source: `/asset/video/${urls[currentVid]}.mp4`,
-        track: `/asset/sub/${urls[currentVid]}.vtt`
-      }));
       onReset();
       setOnRun(false);
     }
@@ -74,7 +59,7 @@ const App = () => {
       </div>
 
       <h3 id="title">{urls[currentVid]}</h3>
-      <Video settings={currentVideoSetting} speed={speed} onRun={onRun} />
+      <Video current={currentVid} speed={speed} onRun={onRun} />
       <ButtonGroup
         onFast={onFast}
         onReset={onReset}

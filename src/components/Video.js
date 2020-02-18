@@ -1,8 +1,24 @@
 import React, { useEffect, useRef } from "react";
-import ReactDom from "react-dom";
+import { urls } from "../urls/Urls";
+
+// useEffect(
+//   currentVid => {
+//     setCurrentVideoSetting(newSettings => ({
+//       key: urls[currentVid],
+//       source: `/asset/video/${urls[currentVid]}.mp4`,
+//       track: `/asset/sub/${urls[currentVid]}.vtt`
+//     }));
+//   },
+//   [currentVid]
+// );
 
 const Video = props => {
-  const { key, source, track } = props.settings;
+  const title = urls[props.current];
+  const settings = {
+    key: title,
+    source: `/asset/video/${title}.mp4`,
+    track: `/asset/sub/${title}.vtt`
+  };
   const videoSpeed = props.speed;
   const run = props.onRun;
 
@@ -13,10 +29,17 @@ const Video = props => {
   });
 
   return (
-    <video key={key} width="1200" height="700" controls muted ref={videoRef}>
-      <source src={source} type="video/mp4" />
+    <video
+      key={settings.key}
+      width="1200"
+      height="700"
+      controls
+      muted
+      ref={videoRef}
+    >
+      <source src={settings.source} type="video/mp4" />
       <track
-        src={track}
+        src={settings.track}
         label="English"
         kind="subtitles"
         srcLang="en"
