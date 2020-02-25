@@ -10,10 +10,12 @@ let data = "";
 
 // Read file name in a folder and make an array
 fs.readdirSync("./public/asset/sub/").forEach(file => {
+  // Check for srt to run transcript
   if (file.substr(-3) === "srt") {
     descript = true;
   }
   let newFile = file.substr(0, file.length - 4);
+
   urls.push(newFile);
   urls.sort((a, b) => parseInt(a) - parseInt(b));
 });
@@ -21,7 +23,7 @@ fs.readdirSync("./public/asset/sub/").forEach(file => {
 console.log(urls);
 
 if (descript) {
-  console.log("descript");
+  console.log("descripted");
   urls.forEach(url => {
     fs.createReadStream(`./public/asset/sub/${url}.srt`)
       .pipe(srt2vtt())
@@ -37,6 +39,7 @@ if (urls.length === 0) {
   console.log("Tập tin trống - Vui lòng đặt đúng vị trí file");
 } else {
   fs.writeFileSync("./src/urls/Urls.js", data);
+  urls = [];
 }
 
 // If subscript file setting is srt <= generate a descript to vtt
