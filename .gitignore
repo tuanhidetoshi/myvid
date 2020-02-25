@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /public/asset/*
+/src/urls/Urls.js
 
 # testing
 /coverage
